@@ -1,0 +1,70 @@
+<div class="row col-xl-5 col-lg-6 col-md-7 col-sm-10 shadow border rounded mx-auto p-5 my-5">
+  <div class="col-12 text-center">
+    <h3 *ngIf="registerAs === 'tutor'">Tutor Registration</h3>
+    <h3 *ngIf="registerAs === 'student'">Student Registration</h3>
+    <h6>Already registered? <a routerLink="/auth/login" class="text-danger">Log In</a></h6>
+    <h6 *ngIf="registerAs === 'student'">
+      Register as a <a routerLink="/auth/register" [queryParams]="{ as: 'tutor'}" class="text-danger">Tutor</a>
+    </h6>
+    <h6 *ngIf="registerAs === 'tutor'">
+      Register as a <a routerLink="/auth/register" [queryParams]="{ as: 'student'}" class="text-danger">Student</a>
+    </h6>
+  </div>
+  <div class="col-12 my-3">
+    <form>
+      <div class="form-group my-2">
+        <label class="form-label">Full Name</label>
+        <input class="form-control" type="text">
+      </div>
+      <div class="form-group my-4" *ngIf="registerAs === 'student'">
+        <label class="form-label">Current Level</label>
+        <input class="form-control" type="text" placeholder="e.g 300, 400">
+      </div>
+      <div class="form-group my-4" *ngIf="registerAs === 'student'">
+        <label class="form-label">Course</label>
+        <input class="form-control" type="text" placeholder="e.g Computer Science, Software Engineering">
+      </div>
+      <div class="form-group my-4" *ngIf="registerAs === 'tutor'">
+        <label class="form-label">Position</label>
+        <input class="form-control" type="text" placeholder="e.g Professor, Associate Professor, etc...">
+      </div>
+      <div>
+        <label class="form-label">Phone Number</label>
+        <div class="row">
+          <div class="col-3">
+            <div class="form-group">
+              <input class="form-control" type="text" value="+44" disabled>
+            </div>
+          </div>
+          <div class="col-9">
+            <div class="form-group">
+              <input class="form-control" type="text" placeholder="Enter a valid UK phone number">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group my-4">
+        <label class="form-label">University E-mail</label>
+        <input class="form-control" type="email" placeholder="Enter a valid university email">
+      </div>
+      <div class="form-group my-4">
+        <label class="form-label">Password</label>
+        <input class="form-control" type="password">
+      </div>
+      <div class="my-4">
+        <button type="button" class="btn btn-outline-danger">
+          <i class="fas fa-arrow-up-right-from-square me-2"></i> Upload File
+        </button>
+        <small class="text-danger ms-3">Upload University ID</small>
+      </div>
+    </form>
+  </div>
+  <div class="col-12 text-center">
+    <button
+      type="button"
+      class="btn btn-lg btn-danger w-100"
+    >
+      Register
+    </button>
+  </div>
+</div>
