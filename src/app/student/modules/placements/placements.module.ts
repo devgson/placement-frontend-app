@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { PlacementsComponent } from './placements.component';
+import { Routes, RouterModule } from '@angular/router';
 
-
+const routes: Routes = [{ path: '', component: PlacementsComponent }];
 
 @NgModule({
-  declarations: [],
+  declarations: [PlacementsComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule.forChild(routes),
   ]
 })
 export class PlacementsModule { }

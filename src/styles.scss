@@ -1,8 +1,10 @@
+@import "~bootstrap/scss/bootstrap";
+
 $theme-colors: (
   "danger": #E4042C,
   "grey": #3C3C3C,
+  "light": #f8f9fa,
 );
-@import "~bootstrap/scss/bootstrap";
 
 // :root {
 //   --blue: #007bff;
@@ -86,4 +88,13 @@ body {
 
 body .p-component {
   font-family: "Lato";
+}
+
+.active {
+  color: red !important;
+}
+
+a, a:hover {
+  text-decoration: none;
+  color: inherit;
 }

@@ -1,0 +1,26 @@
+<nav>
+  <div class="text-center mt-5">
+    <a
+      routerLink="/student/authorization-requests"
+      routerLinkActive="active"
+    >
+      <i class="d-block fas fa-code-pull-request font-size-15 mb-2"></i>
+      <span>Authorization Requests</span>
+    </a>
+  </div>
+  <div class="text-center mt-5">
+    <a
+      routerLink="/student/placements"
+      routerLinkActive="active"
+    >
+      <i class="d-block fas fa-landmark font-size-15 mb-2"></i>
+      <span>Placements</span>
+    </a>
+  </div>
+  <div class="text-center mt-5">
+    <a style="cursor: pointer" (click)="logout()">
+      <i class="d-block fas fa-person-running font-size-15 mb-2"></i>
+      <span>Logout</span>
+    </a>
+  </div>
+</nav>

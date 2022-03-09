@@ -1,0 +1,99 @@
+<div class="container-fluid">
+  <div class="text-center bg-danger rounded mt-4 p-2">
+    <h5 class="text-light m-0 mx-auto">Authorization Requests</h5>
+  </div>
+  <div class="row my-3 text-center">
+    <div class="">
+      <h5 class="m-3">Do you want to start a new placement?</h5>
+      <button
+        type="button"
+        class="btn btn-outline-danger"
+      >
+        + New Authorization Request
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 my-3">
+      <ul class="nav nav-pills nav-fill">
+        <li class="nav-item me-1 mt-2">
+          <a class="nav-link bg-danger text-white" style="cursor: pointer">PENDING (1)</a>
+        </li>
+        <li class="nav-item me-1 mt-2">
+          <a class="nav-link bg-white text-black border" style="cursor: pointer">APPROVED (1)</a>
+        </li>
+        <li class="nav-item ms-1 mt-2">
+          <a class="nav-link bg-white text-black border" style="cursor: pointer">REJECTED (0)</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div>
+    <div class="row mt-3">
+      <div class="col-lg-4 col-xl-3 col-md-6 mb-3">
+        <div class="card shadow border-top-green">
+          <div class="card-header d-flex align-items-baseline card-title pt-3 pb-0">
+            <h5 class="font-weight-bold">BetterECO Gmbh</h5>
+            <small class="float-right text-muted ms-auto" style="font-size: 0.7rem;">15th July, 2022</small>
+          </div>
+          <div class="card-body">
+            <div>
+              <p class="card-text mb-0">
+                <i class="fas fa-vector-square me-2" style="font-size: 0.8rem;"></i><b>Company Sector</b>
+              </p>
+              <p class="card-text mb-0" style="font-size: 0.9rem;">Argiculture</p>
+            </div>
+            <div>
+              <p class="card-text mb-0 mt-3">
+                <i class="fas fa-clock-rotate-left me-2" style="font-size: 0.8rem;"></i><b>Placement Duration</b>
+              </p>
+              <p class="card-text" style="font-size: 0.9rem;">3 Months</p>
+            </div>
+            <div>
+              <p class="card-text mb-0 mt-3">
+                <i class="fas fa-location-crosshairs me-2" style="font-size: 0.8rem;"></i><b>Location</b>
+              </p>
+              <p class="card-text" style="font-size: 0.9rem;">Berlin, Germany</p>
+            </div>
+          </div>
+          <div class="card-footer bg-white">
+            <button type="button" class="btn btn-sm btn-outline-dark me-2">
+              <i class="far fa-eye pe-1 pt-1" aria-hidden="true" style="font-size: 0.8rem;"></i>View
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-danger">
+              <i class="far fa-trash-alt pe-1" aria-hidden="true" style="font-size: 0.8rem;"></i>Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-dialog
+  [(visible)]="viewAuthorizationRequest"
+  [modal]="true"
+  styleClass="col-11 col-lg-8 col-xxl-6 shadow-none"
+  [baseZIndex]="10000"
+  [closable]="false"
+  [contentStyle]="{
+    'overflow-y': 'auto',
+    'overflow-x': 'hidden',
+    'max-height': '80vh',
+    'min-height': '250px'
+  }"
+>
+  <ng-template pTemplate="header">
+    <div class="w-100">
+      <div class="breadcrumb bg-green mb-0">
+        <h5 class="text-light text-center m-0 mx-auto">
+          <i class="fas fa-info-circle mr-2"></i>
+          Viewing Authorization Request
+        </h5>
+      </div>
+    </div>
+  </ng-template>
+  <div>
+    <app-view-authorization-request></app-view-authorization-request>
+  </div>
+</p-dialog>
