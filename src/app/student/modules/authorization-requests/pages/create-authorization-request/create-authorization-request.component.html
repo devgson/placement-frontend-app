@@ -1,1 +1,88 @@
-<p>create-authorization-request works!</p>
+<div class="px-4">
+  <div class="row my-2">
+    <div class="col-6">
+      <div class="form-group my-2">
+        <label class="form-label">Company Name</label>
+        <input class="form-control" value="BetterECO GmbH">
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="form-group my-2">
+        <label class="form-label">Company Sector</label>
+        <input class="form-control" value="Agriculture">
+      </div>
+    </div>
+  </div>
+  <div class="row my-2">
+    <div class="col-6">
+      <div class="form-group my-2">
+        <label class="form-label">Location</label>
+        <input class="form-control" value="Berlin, Germany">
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="form-group my-2">
+        <label class="form-label">Duration</label>
+        <input class="form-control" value="3 Months" disabled>
+      </div>
+    </div>
+  </div>
+  <div class="row my-2">
+    <div class="col-6">
+      <div class="form-group my-2">
+        <label class="form-label">Potential Start Date</label>
+        <p-calendar
+          [monthNavigator]="true"
+          [yearNavigator]="true"
+          dateFormat="dd/mm/yy"
+          yearRange="1900:2021"
+          styleClass="custom-form-control"
+          showIcon="true"
+          [readonlyInput]="true"
+          appendTo="body"
+        >
+        </p-calendar>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="form-group my-2">
+        <label class="form-label">Potential End Date</label>
+        <p-calendar
+          [monthNavigator]="true"
+          [yearNavigator]="true"
+          dateFormat="dd/mm/yy"
+          yearRange="1900:2021"
+          styleClass="custom-form-control"
+          showIcon="true"
+          [readonlyInput]="true"
+          appendTo="body"
+        >
+        </p-calendar>
+      </div>
+    </div>
+  </div>
+  <div class="row my-2">
+    <div class="col-6">
+      <div class="form-group my-2">
+        <label class="form-label">Add Comments</label>
+        <textarea class="form-control">3 Months</textarea>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="form-group my-2">
+        <label class="form-label">Authorization Request Form</label>
+        <button type="button" class="d-block btn btn-outline-danger">
+          <i class="fas fa-arrow-up-right-from-square me-2"></i> Upload Request Form
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="text-center">
+      <ng-content></ng-content>
+      <button type="button" class="btn btn-danger ms-2" disabled>
+        <i class="fas fa-plus me-2"></i> Submit Request
+      </button>
+    </div>
+  </div>
+</div>

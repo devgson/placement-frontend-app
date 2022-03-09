@@ -8,10 +8,18 @@ import { Component, OnInit } from '@angular/core';
 export class AuthorizationRequestsComponent implements OnInit {
 
   viewAuthorizationRequest = false;
+  createAuthorizationRequest = false;
 
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  openViewDialog() {
+    this.viewAuthorizationRequest = true;
+  }
+
+  openCreateDialog() {
+    this.createAuthorizationRequest = true;
   }
 
 }

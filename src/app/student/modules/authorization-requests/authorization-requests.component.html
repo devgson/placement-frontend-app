@@ -6,6 +6,7 @@
     <div class="">
       <h5 class="m-3">Do you want to start a new placement?</h5>
       <button
+        (click)="openCreateDialog()"
         type="button"
         class="btn btn-outline-danger"
       >
@@ -57,7 +58,7 @@
             </div>
           </div>
           <div class="card-footer bg-white">
-            <button type="button" class="btn btn-sm btn-outline-dark me-2">
+            <button (click)="openViewDialog()" type="button" class="btn btn-sm btn-outline-dark me-2">
               <i class="far fa-eye pe-1 pt-1" aria-hidden="true" style="font-size: 0.8rem;"></i>View
             </button>
             <button type="button" class="btn btn-sm btn-outline-danger">
@@ -72,28 +73,50 @@
 
 <p-dialog
   [(visible)]="viewAuthorizationRequest"
-  [modal]="true"
   styleClass="col-11 col-lg-8 col-xxl-6 shadow-none"
-  [baseZIndex]="10000"
-  [closable]="false"
-  [contentStyle]="{
-    'overflow-y': 'auto',
-    'overflow-x': 'hidden',
-    'max-height': '80vh',
-    'min-height': '250px'
-  }"
+  [modal]="true"
 >
   <ng-template pTemplate="header">
     <div class="w-100">
-      <div class="breadcrumb bg-green mb-0">
-        <h5 class="text-light text-center m-0 mx-auto">
-          <i class="fas fa-info-circle mr-2"></i>
-          Viewing Authorization Request
+      <div class="text-center bg-danger rounded me-2 p-2 mb-0">
+        <h5 class="text-light m-0 mx-auto">
+          View Authorization Request
         </h5>
       </div>
     </div>
   </ng-template>
   <div>
-    <app-view-authorization-request></app-view-authorization-request>
+    <app-view-authorization-request>
+      <div class="text-center">
+        <button (click)="viewAuthorizationRequest = false" type="button" class="btn btn-secondary w-25">
+          <i class="fas fa-xmark me-2"></i>
+          Close
+        </button>
+      </div>
+    </app-view-authorization-request>
+  </div>
+</p-dialog>
+
+<p-dialog
+  [(visible)]="createAuthorizationRequest"
+  styleClass="col-11 col-lg-8 col-xxl-6 shadow-none"
+  [modal]="true"
+>
+  <ng-template pTemplate="header">
+    <div class="w-100">
+      <div class="text-center bg-danger rounded me-2 p-2 mb-0">
+        <h5 class="text-light m-0 mx-auto">
+          Create Authorization Request
+        </h5>
+      </div>
+    </div>
+  </ng-template>
+  <div>
+    <app-create-authorization-request>
+      <button (click)="createAuthorizationRequest = false" type="button" class="btn btn-secondary">
+        <i class="fas fa-xmark me-2"></i>
+        Close
+      </button>
+    </app-create-authorization-request>
   </div>
 </p-dialog>

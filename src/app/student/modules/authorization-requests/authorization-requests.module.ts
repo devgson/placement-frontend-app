@@ -6,6 +6,8 @@ import { ViewAuthorizationRequestComponent } from './pages/view-authorization-re
 import { CreateAuthorizationRequestComponent } from './pages/create-authorization-request/create-authorization-request.component';
 import { SharedModule } from '../../shared/shared.module';
 import { DialogModule } from 'primeng/dialog';
+import { CalendarModule } from 'primeng/calendar';
+
 
 const routes: Routes = [{ path: '', component: AuthorizationRequestsComponent }];
 
@@ -15,6 +17,7 @@ const routes: Routes = [{ path: '', component: AuthorizationRequestsComponent }]
     CommonModule,
     SharedModule,
     DialogModule,
+    CalendarModule,
     RouterModule.forChild(routes),
   ]
 })
