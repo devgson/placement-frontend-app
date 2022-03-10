@@ -9,10 +9,9 @@ export class PlacementsComponent implements OnInit {
 
   viewPlacement = false;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   openDialog() {
     this.viewPlacement = true;

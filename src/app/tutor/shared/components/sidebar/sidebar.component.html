@@ -1,0 +1,35 @@
+<nav>
+  <div class="text-center mt-5">
+    <a
+      routerLink="/tutor/placements"
+      routerLinkActive="active"
+    >
+      <i class="d-block fas fa-landmark font-size-15 mb-2"></i>
+      <span>Placements</span>
+    </a>
+  </div>
+  <div class="text-center mt-5">
+    <a
+      routerLink="/tutor/scheduled-visits"
+      routerLinkActive="active"
+    >
+      <i class="d-block fas fa-signal font-size-15 mb-2"></i>
+      <span>Scheduled Visits</span>
+    </a>
+  </div>
+  <div class="text-center mt-5">
+    <a
+      routerLink="/tutor/map"
+      routerLinkActive="active"
+    >
+      <i class="d-block fas fa-earth-europe font-size-15 mb-2"></i>
+      <span>Map</span>
+    </a>
+  </div>
+  <div class="text-center mt-5">
+    <a style="cursor: pointer" (click)="logout()">
+      <i class="d-block fas fa-person-running font-size-15 mb-2"></i>
+      <span>Logout</span>
+    </a>
+  </div>
+</nav>
