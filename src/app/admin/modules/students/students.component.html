@@ -49,10 +49,10 @@
             </div>
           </div>
           <div class="card-footer bg-white">
-            <button (click)="openDialog()" type="button" class="btn btn-sm btn-outline-dark me-2">
+            <button (click)="openStudentDialog()" type="button" class="btn btn-sm btn-outline-dark me-2">
               <i class="far fa-eye pe-1 pt-1" aria-hidden="true" style="font-size: 0.9rem;"></i>View Student
             </button>
-            <button (click)="openDialog()" type="button" class="btn btn-sm btn-outline-dark">
+            <button (click)="openPlacementDialog()" type="button" class="btn btn-sm btn-outline-dark">
               <i class="far fa-eye pe-1 pt-1" aria-hidden="true" style="font-size: 0.9rem;"></i>View Placement
             </button>
           </div>
@@ -61,6 +61,31 @@
     </div>
   </div>
 </div>
+
+<p-dialog
+  [(visible)]="viewStudent"
+  styleClass="col-11 col-lg-8 col-xxl-6 shadow-none"
+  [modal]="true"
+>
+  <ng-template pTemplate="header">
+    <div class="w-100">
+      <div class="text-center bg-danger rounded me-2 p-2 mb-0">
+        <h5 class="text-light m-0 mx-auto">
+          View Student
+        </h5>
+      </div>
+    </div>
+  </ng-template>
+  <div>
+    <app-view-student>
+      <div class="text-center">
+        <button (click)="viewStudent = false" type="button" class="btn btn-secondary w-25">
+          Close
+        </button>
+      </div>
+    </app-view-student>
+  </div>
+</p-dialog>
 
 <p-dialog
   [(visible)]="viewPlacement"

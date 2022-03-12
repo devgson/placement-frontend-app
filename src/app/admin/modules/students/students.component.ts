@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StudentsComponent implements OnInit {
 
+  viewStudent = false;
   viewPlacement = false;
 
   constructor() { }
@@ -14,8 +15,12 @@ export class StudentsComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  openDialog() {
+  openPlacementDialog() {
     this.viewPlacement = true;
+  }
+
+  openStudentDialog() {
+    this.viewStudent = true;
   }
 
 }

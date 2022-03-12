@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TutorsComponent implements OnInit {
 
-  constructor() { }
+  viewTutor = false;
 
-  ngOnInit(): void {
+  constructor() {}
+
+  ngOnInit(): void {}
+
+  openDialog() {
+    this.viewTutor = true;
   }
 
 }
