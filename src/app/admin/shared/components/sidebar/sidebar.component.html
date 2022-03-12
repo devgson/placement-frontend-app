@@ -1,0 +1,44 @@
+<nav>
+  <div class="text-center mt-5">
+    <a
+      routerLink="/admin/registrations"
+      routerLinkActive="active"
+    >
+      <i class="d-block fas fa-user-plus font-size-15 mb-2"></i>
+      <span>Registrations</span>
+    </a>
+  </div>
+  <div class="text-center mt-5">
+    <a
+      routerLink="/admin/authorization-requests"
+      routerLinkActive="active"
+    >
+      <i class="d-block fas fa-code-pull-request font-size-15 mb-2"></i>
+      <span>Authorization Requests</span>
+    </a>
+  </div>
+  <div class="text-center mt-5">
+    <a
+      routerLink="/admin/students"
+      routerLinkActive="active"
+    >
+      <i class="d-block fas fa-user-graduate font-size-15 mb-2"></i>
+      <span>Students</span>
+    </a>
+  </div>
+  <div class="text-center mt-5">
+    <a
+      routerLink="/admin/tutors"
+      routerLinkActive="active"
+    >
+      <i class="d-block fas fa-user-secret font-size-15 mb-2"></i>
+      <span>Tutors</span>
+    </a>
+  </div>
+  <div class="text-center mt-5">
+    <a style="cursor: pointer" (click)="logout()">
+      <i class="d-block fas fa-person-running font-size-15 mb-2"></i>
+      <span>Logout</span>
+    </a>
+  </div>
+</nav>

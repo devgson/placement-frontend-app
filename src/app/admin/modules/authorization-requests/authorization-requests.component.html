@@ -1,0 +1,82 @@
+<div class="container-fluid">
+  <div class="text-center bg-danger rounded mt-4 p-2">
+    <h5 class="text-light m-0 mx-auto">Authorization Requests</h5>
+  </div>
+  <div class="row">
+    <div class="col-12 my-3">
+      <ul class="nav nav-pills nav-fill">
+        <li class="nav-item me-1 mt-2">
+          <a class="nav-link bg-danger text-white" style="cursor: pointer">PENDING (1)</a>
+        </li>
+        <li class="nav-item me-1 mt-2">
+          <a class="nav-link bg-white text-black border" style="cursor: pointer">APPROVED (1)</a>
+        </li>
+        <li class="nav-item ms-1 mt-2">
+          <a class="nav-link bg-white text-black border" style="cursor: pointer">REJECTED (0)</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div>
+    <div class="row mt-3">
+      <div class="col-lg-4 col-xl-3 col-md-6 mb-3">
+        <div class="card shadow border-top-green">
+          <div class="card-header d-flex align-items-baseline card-title pt-3 pb-0">
+            <h5 class="font-weight-bold">John Doe</h5>
+            <small class="float-right text-muted ms-auto" style="font-size: 0.7rem;">15th July, 2022</small>
+          </div>
+          <div class="card-body">
+            <div>
+              <p class="card-text mb-0">
+                <i class="fas fa-vector-square me-2" style="font-size: 0.8rem;"></i><b>Company Name</b>
+              </p>
+              <p class="card-text mb-0" style="font-size: 0.9rem;">BetterECO GmbH</p>
+            </div>
+            <div>
+              <p class="card-text mb-0 mt-3">
+                <i class="fas fa-clock-rotate-left me-2" style="font-size: 0.8rem;"></i><b>Placement Duration</b>
+              </p>
+              <p class="card-text" style="font-size: 0.9rem;">3 Months</p>
+            </div>
+            <div>
+              <p class="card-text mb-0 mt-3">
+                <i class="fas fa-location-crosshairs me-2" style="font-size: 0.8rem;"></i><b>Location</b>
+              </p>
+              <p class="card-text" style="font-size: 0.9rem;">Berlin, Germany</p>
+            </div>
+          </div>
+          <div class="card-footer bg-white">
+            <button (click)="openViewDialog()" type="button" class="btn btn-sm btn-outline-dark me-2">
+              <i class="far fa-eye pe-1 pt-1" aria-hidden="true" style="font-size: 0.8rem;"></i>View
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-dialog
+  [(visible)]="viewAuthorizationRequest"
+  styleClass="col-11 col-lg-8 col-xxl-6 shadow-none"
+  [modal]="true"
+>
+  <ng-template pTemplate="header">
+    <div class="w-100">
+      <div class="text-center bg-danger rounded me-2 p-2 mb-0">
+        <h5 class="text-light m-0 mx-auto">
+          View Authorization Request
+        </h5>
+      </div>
+    </div>
+  </ng-template>
+  <div>
+    <app-view-authorization-request>
+      <div class="text-center">
+        <button (click)="viewAuthorizationRequest = false" type="button" class="btn btn-secondary w-25">
+          Close
+        </button>
+      </div>
+    </app-view-authorization-request>
+  </div>
+</p-dialog>
