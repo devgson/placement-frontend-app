@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Validators, FormBuilder } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { AuthService, SuccessResponse } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-admin-login',
@@ -7,9 +10,38 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminLoginComponent implements OnInit {
 
-  constructor() { }
+  loading;
+  
+  form = this.fb.group({
+    email: ['', [Validators.required]],
+    password: ['', Validators.required],
+  });
 
-  ngOnInit(): void {
+  constructor(
+    private authService: AuthService,
+    private toastr: ToastrService,
+    private fb: FormBuilder
+  ) {}
+
+  ngOnInit(): void {}
+
+  hasError(control, validator = 'required', form = this.form) {
+    return (
+      form.get(control).hasError(validator) &&
+      form.get(control).touched
+    );
+  }
+
+  submit() {
+    this.loading = true;
+    this.authService.adminLogin(this.form.value)
+      .subscribe(
+        (value: SuccessResponse) => {
+          this.toastr.success(value.message, 'Success');
+          this.loading = false;
+        },
+        (error) => (this.loading = false)
+      );
   }
 
 }

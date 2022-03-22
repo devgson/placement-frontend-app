@@ -11,22 +11,41 @@
     </h6>
   </div>
   <div class="col-12 my-3">
-    <form>
+    <form [formGroup]="form">
       <div class="form-group my-2">
         <label class="form-label">Full Name</label>
-        <input class="form-control" type="text">
+        <input formControlName="fullName" class="form-control" type="text">
+        <p class="error" *ngIf="hasError('fullName')">
+          Full Name is required
+        </p>
       </div>
-      <div class="form-group my-4" *ngIf="registerAs === 'student'">
+      <div [formGroup]="studentForm" class="form-group my-4" *ngIf="registerAs === 'student'">
         <label class="form-label">Current Level</label>
-        <input class="form-control" type="text" placeholder="e.g 300, 400">
+        <select formControlName="currentLevel" class="form-select">
+          <option value="100 Level">100 Level</option>
+          <option value="200 Level">200 Level</option>
+          <option value="300 Level">300 Level</option>
+          <option value="400 Level">400 Level</option>
+          <option value="500 Level">500 Level</option>
+          <option value="postgraduate">Postgraduate</option>
+        </select>
+        <p class="error" *ngIf="hasError('currentLevel', 'required', studentForm)">
+          Student's Current Level is required
+        </p>
       </div>
-      <div class="form-group my-4" *ngIf="registerAs === 'student'">
+      <div [formGroup]="studentForm" class="form-group my-4" *ngIf="registerAs === 'student'">
         <label class="form-label">Course</label>
-        <input class="form-control" type="text" placeholder="e.g Computer Science, Software Engineering">
+        <input formControlName="course" class="form-control" type="text" placeholder="e.g Computer Science, Software Engineering">
+        <p class="error" *ngIf="hasError('course', 'required', studentForm)">
+          Student's Course is required
+        </p>
       </div>
-      <div class="form-group my-4" *ngIf="registerAs === 'tutor'">
+      <div [formGroup]="tutorForm" class="form-group my-4" *ngIf="registerAs === 'tutor'">
         <label class="form-label">Position</label>
-        <input class="form-control" type="text" placeholder="e.g Professor, Associate Professor, etc...">
+        <input formControlName="position" class="form-control" type="text" placeholder="e.g Professor, Associate Professor, etc...">
+        <p class="error" *ngIf="hasError('position', 'required', tutorForm)">
+          Tutor's position is required
+        </p>
       </div>
       <div>
         <label class="form-label">Phone Number</label>
@@ -38,24 +57,68 @@
           </div>
           <div class="col-9">
             <div class="form-group">
-              <input class="form-control" type="text" placeholder="Enter a valid UK phone number">
+              <input formControlName="phoneNumber" class="form-control" type="text" placeholder="Enter a valid UK phone number">
             </div>
+            <p class="error" *ngIf="hasError('phoneNumber')">
+              Phone Number is required
+            </p>
           </div>
         </div>
       </div>
       <div class="form-group my-4">
         <label class="form-label">University E-mail</label>
-        <input class="form-control" type="email" placeholder="Enter a valid university email">
+        <input formControlName="email" class="form-control" type="email" placeholder="Enter a valid university email">
+        <p class="error" *ngIf="hasError('email')">
+          Email is required
+        </p>
+        <p class="error" *ngIf="hasError('email', 'invalidEmail')">
+          Email must end with ".le.ac.uk"
+        </p>
       </div>
       <div class="form-group my-4">
         <label class="form-label">Password</label>
-        <input class="form-control" type="password">
+        <input formControlName="password" class="form-control" type="password">
+        <p class="error" *ngIf="hasError('password')">
+          Password is required
+        </p>
+      </div>
+      <div class="form-group my-4">
+        <label class="form-label">Confirm Password</label>
+        <input formControlName="confirmPassword" class="form-control" type="password">
+        <p class="error" *ngIf="hasError('confirmPassword')">
+          Confirm Password is required
+        </p>
+        <p class="error" *ngIf="form.errors?.invalidPassword">
+          Password and Confirm Password must match
+        </p>
       </div>
       <div class="my-4">
-        <button type="button" class="btn btn-outline-danger">
-          <i class="fas fa-arrow-up-right-from-square me-2"></i> Upload File
-        </button>
-        <small class="text-danger ms-3">Upload University ID</small>
+        <label class="form-label">Proof (Only pdf files are alllowed)</label>
+        <div *ngIf="!controlValue('universityId')">
+          <p-fileUpload
+            mode="basic"
+            accept="application/pdf"
+            maxFileSize="10000000"
+            [multiple]="false"
+            [auto]="true"
+            customUpload="true"
+            (uploadHandler)="uploadFile($event)"
+            styleClass="bg-dark text-white me-2"
+            chooseIcon="fas fa-arrow-up-right-from-square"
+            chooseLabel="Upload University Id"
+          ></p-fileUpload>
+        </div>
+        <div class="d-flex justify-content-between" *ngIf="controlValue('universityId')">
+          <b>{{ controlValue('universityId')?.name }}</b>
+          <span
+            style="cursor: pointer"
+            class="text-danger"
+            (click)="removeFile()"
+          >
+            <i class="fas fa-trash-alt"></i>
+            Remove
+          </span>
+        </div>
       </div>
     </form>
   </div>
@@ -63,8 +126,15 @@
     <button
       type="button"
       class="btn btn-lg btn-danger w-100"
+      [disabled]="isInvalid()"
+      (click)="submit()"
+      *ngIf="!loading; else spinner"
     >
       Register
     </button>
   </div>
 </div>
+
+<ng-template #spinner>
+  <app-spinner></app-spinner>
+</ng-template>
