@@ -2,14 +2,22 @@
   <div class="row my-2">
     <div class="col-6">
       <div class="form-group my-2">
-        <label class="form-label">Company Email</label>
-        <input class="form-control" value="BetterECO GmbH" disabled>
+        <label class="form-label">Company Name</label>
+        <input
+          class="form-control"
+          value="{{ authorizationRequest?.companyName }}"
+          disabled
+        >
       </div>
     </div>
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Company Sector</label>
-        <input class="form-control" value="Agriculture" disabled>
+        <input
+          class="form-control"
+          value="{{ authorizationRequest?.companySector }}"
+          disabled
+        >
       </div>
     </div>
   </div>
@@ -17,13 +25,21 @@
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Location</label>
-        <input class="form-control" value="Berlin, Germany" disabled>
+        <input
+          class="form-control"
+          value="{{ authorizationRequest?.location }}"
+          disabled
+        >
       </div>
     </div>
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Authorization Status</label>
-        <input class="form-control" value="Under Review" disabled>
+        <input
+          class="form-control"
+          value="{{ authorizationRequest?.status | titlecase }}"
+          disabled
+        >
       </div>
     </div>
   </div>
@@ -31,13 +47,21 @@
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Potential Start Date</label>
-        <input class="form-control" value="9th March, 2021" disabled>
+        <input
+          class="form-control"
+          value="{{ authorizationRequest?.potentialStartDate | date:'longDate' }}"
+          disabled
+        >
       </div>
     </div>
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Potential End Date</label>
-        <input class="form-control" value="11th March, 2022" disabled>
+        <input
+          class="form-control"
+          value="{{ authorizationRequest?.potentialEndDate | date:'longDate' }}"
+          disabled
+        >
       </div>
     </div>
   </div>
@@ -45,13 +69,21 @@
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Student Name</label>
-        <input class="form-control" value="John Doe" disabled>
+        <input
+          class="form-control"
+          value="{{ authorizationRequest?.student?.fullName }}"
+          disabled
+        >
       </div>
     </div>
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Current Level</label>
-        <input class="form-control" value="300 Level" disabled>
+        <input
+          class="form-control"
+          value="{{ authorizationRequest?.student?.currentLevel }}"
+          disabled
+        >
       </div>
     </div>
   </div>
@@ -59,13 +91,21 @@
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Duration</label>
-        <input class="form-control" value="3 Months" disabled>
+        <input
+          class="form-control"
+          value="{{ authorizationRequest?.duration }} Months"
+          disabled
+        >
       </div>
     </div>
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Course</label>
-        <input class="form-control" value="Computer Science" disabled>
+        <input
+          class="form-control"
+          value="{{ authorizationRequest?.student?.course }}"
+          disabled
+        >
       </div>
     </div>
   </div>
@@ -73,13 +113,17 @@
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Admin Comments</label>
-        <textarea class="form-control" disabled>3 Months</textarea>
+        <textarea class="form-control" disabled>
+{{ authorizationRequest?.adminComment }}
+        </textarea>
       </div>
     </div>
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Your Comments</label>
-        <textarea class="form-control" disabled>3 Months</textarea>
+        <textarea class="form-control" disabled>
+{{ authorizationRequest?.studentComment }}
+        </textarea>
       </div>
     </div>
   </div>
@@ -87,14 +131,28 @@
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Authorization Request Form</label>
-        <button type="button" class="d-block btn btn-outline-success">
+        <a [href]="authorizationRequest?.requestForm" target="_blank" type="button" class="btn btn-outline-success">
           <i class="fas fa-arrow-down me-2"></i>
           Download Request Form
-        </button>
+        </a>
       </div>
     </div>
   </div>
   <div class="row mt-4">
-    <ng-content></ng-content>
+    <div class="text-center">
+      <ng-content></ng-content>
+      <button
+        (click)="deleteAuthorizationRequest(authorizationRequest?.id)"
+        type="button"
+        class="btn btn-danger ms-2"
+        *ngIf="!deleting; else spinner"
+      >
+        <i class="far fa-trash-alt me-2"></i>Delete
+      </button>
+    </div>
   </div>
 </div>
+
+<ng-template #spinner>
+  <app-spinner loadingText="Deleting"></app-spinner>
+</ng-template>

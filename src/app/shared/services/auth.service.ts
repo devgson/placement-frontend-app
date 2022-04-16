@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import jwt_decode from "jwt-decode";
+import jwt_decode from 'jwt-decode';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { ErrorHandlerService } from './error-handler.service';
+import { environment } from '../../../environments/environment';
+import { Router } from '@angular/router';
 
 export interface SuccessResponse {
   data: any;
@@ -16,10 +18,10 @@ export interface SuccessResponse {
 })
 export class AuthService {
 
-  constructor(private http: HttpClient, private errorHandler: ErrorHandlerService) {}
+  constructor(private http: HttpClient, private router: Router, private errorHandler: ErrorHandlerService) {}
 
   register(type, data): Observable<SuccessResponse> {
-    const url = `http://localhost:3000/auth/register/${type}`;
+    const url = `${environment.API_URL}/auth/register/${type}`;
     return this.http
       .post(url, data)
       .pipe(
@@ -28,8 +30,14 @@ export class AuthService {
       );
   }
 
+  logout() {
+    localStorage.removeItem('user');
+    localStorage.removeItem('userToken');
+    this.router.navigate(['/auth/login']);
+  }
+
   login(role, data): Observable<SuccessResponse> {
-    const url = `http://localhost:3000/auth/login/${role}`;
+    const url = `${environment.API_URL}/auth/login/${role}`;
     return this.http
       .post(url, data)
       .pipe(
@@ -40,17 +48,39 @@ export class AuthService {
 
   adminLogin(data): Observable<SuccessResponse> {
     return this.http
-      .post(`http://localhost:3000/auth/login/admin`, data)
+      .post(`${environment.API_URL}/auth/login/admin`, data)
       .pipe(
         map((response: SuccessResponse) => this.handleLogin(response)),
         catchError((error) => this.errorHandler.handleHttpError(error))
       );
   }
 
+  userHasRole(role) {
+    const user = this.getUserFromLocalStorage();
+    return user?.role === role;
+  }
+
+  getTokenFromLocalStorage() {
+    return localStorage.getItem('userToken');
+  }
+
+  getUserFromLocalStorage() {
+    const user = localStorage.getItem('user');
+    if (!user) return null;
+    return JSON.parse(user);
+  }
+
   handleLogin(response: SuccessResponse) {
     this.storeToken(response.data);
     this.storeDecodedToken(this.decodeToken(response.data));
     return response;
+  }
+
+  isTokenExpired() {
+    const token = this.getTokenFromLocalStorage();
+    if (!token) return true;
+    const decodedToken: any = this.decodeToken(token);
+    return new Date().valueOf() > new Date(decodedToken.exp * 1000).valueOf();
   }
 
   storeDecodedToken(user) {

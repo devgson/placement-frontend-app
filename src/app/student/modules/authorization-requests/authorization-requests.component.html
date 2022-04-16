@@ -18,51 +18,77 @@
     <div class="col-12 my-3">
       <ul class="nav nav-pills nav-fill">
         <li class="nav-item me-1 mt-2">
-          <a class="nav-link bg-danger text-white" style="cursor: pointer">PENDING (1)</a>
+          <a
+            [ngClass]="{
+              'bg-danger text-white': active === 'pending',
+              'bg-white text-black border': active !== 'pending'
+            }"
+            (click)="setActive('pending')"
+            class="nav-link" style="cursor: pointer">
+            PENDING ({{ numberOfPendingRequests }})
+          </a>
         </li>
         <li class="nav-item me-1 mt-2">
-          <a class="nav-link bg-white text-black border" style="cursor: pointer">APPROVED (1)</a>
+          <a
+            [ngClass]="{
+              'bg-danger text-white': active === 'approved',
+              'bg-white text-black border': active !== 'approved'
+            }"
+            (click)="setActive('approved')"
+            class="nav-link" style="cursor: pointer"
+          >
+            APPROVED ({{ numberOfAcceptedRequests }})
+          </a>
         </li>
         <li class="nav-item ms-1 mt-2">
-          <a class="nav-link bg-white text-black border" style="cursor: pointer">REJECTED (0)</a>
+          <a
+            [ngClass]="{
+              'bg-danger text-white': active === 'rejected',
+              'bg-white text-black border': active !== 'rejected'
+            }"
+            (click)="setActive('rejected')"
+            class="nav-link" style="cursor: pointer"
+          >
+            REJECTED ({{ numberOfRejectedRequests }})
+          </a>
         </li>
       </ul>
     </div>
   </div>
   <div>
     <div class="row mt-3">
-      <div class="col-lg-4 col-xl-3 col-md-6 mb-3">
+      <div
+        class="col-lg-4 col-xl-3 col-md-6 mb-3"
+        *ngFor="let request of filteredAuthorizationRequests"
+      >
         <div class="card shadow border-top-green">
           <div class="card-header d-flex align-items-baseline card-title pt-3 pb-0">
-            <h5 class="font-weight-bold">BetterECO Gmbh</h5>
-            <small class="float-right text-muted ms-auto" style="font-size: 0.7rem;">15th July, 2022</small>
+            <h5 class="font-weight-bold">{{ request.companyName }}</h5>
+            <small class="float-right text-muted ms-auto" style="font-size: 0.7rem;">{{ request.createdAt | date:'longDate' }}</small>
           </div>
           <div class="card-body">
             <div>
               <p class="card-text mb-0">
                 <i class="fas fa-vector-square me-2" style="font-size: 0.8rem;"></i><b>Company Sector</b>
               </p>
-              <p class="card-text mb-0" style="font-size: 0.9rem;">Argiculture</p>
+              <p class="card-text mb-0" style="font-size: 0.9rem;">{{ request.companySector }}</p>
             </div>
             <div>
               <p class="card-text mb-0 mt-3">
                 <i class="fas fa-clock-rotate-left me-2" style="font-size: 0.8rem;"></i><b>Placement Duration</b>
               </p>
-              <p class="card-text" style="font-size: 0.9rem;">3 Months</p>
+              <p class="card-text" style="font-size: 0.9rem;">{{ request.duration }} Months</p>
             </div>
             <div>
               <p class="card-text mb-0 mt-3">
                 <i class="fas fa-location-crosshairs me-2" style="font-size: 0.8rem;"></i><b>Location</b>
               </p>
-              <p class="card-text" style="font-size: 0.9rem;">Berlin, Germany</p>
+              <p class="card-text" style="font-size: 0.9rem;">{{ request.location }}</p>
             </div>
           </div>
           <div class="card-footer bg-white">
-            <button (click)="openViewDialog()" type="button" class="btn btn-sm btn-outline-dark me-2">
+            <button (click)="openViewDialog(request)" type="button" class="btn btn-sm btn-outline-dark me-2">
               <i class="far fa-eye pe-1 pt-1" aria-hidden="true" style="font-size: 0.8rem;"></i>View
-            </button>
-            <button type="button" class="btn btn-sm btn-outline-danger">
-              <i class="far fa-trash-alt pe-1" aria-hidden="true" style="font-size: 0.8rem;"></i>Delete
             </button>
           </div>
         </div>
@@ -86,12 +112,13 @@
     </div>
   </ng-template>
   <div>
-    <app-view-authorization-request>
-      <div class="text-center">
-        <button (click)="viewAuthorizationRequest = false" type="button" class="btn btn-secondary w-25">
-          Close
-        </button>
-      </div>
+    <app-view-authorization-request
+      [authorizationRequest]="authorizationRequest"
+      (closeDialog)="postDeletingAuthorizationRequest()"
+    >
+      <button (click)="viewAuthorizationRequest = false" type="button" class="btn btn-secondary w-25">
+        Close
+      </button>
     </app-view-authorization-request>
   </div>
 </p-dialog>
@@ -111,8 +138,10 @@
     </div>
   </ng-template>
   <div>
-    <app-create-authorization-request>
-      <button (click)="createAuthorizationRequest = false" type="button" class="btn btn-secondary">
+    <app-create-authorization-request
+      (closeDialog)="postCreatingAuthorizationRequest()"
+    >
+      <button (click)="createAuthorizationRequest = false" type="button" class="btn btn-secondary w-25">
         Close
       </button>
     </app-create-authorization-request>

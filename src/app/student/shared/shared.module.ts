@@ -7,7 +7,7 @@ import { SharedModule as GlobalSharedModule } from '../../shared/shared.module';
 import { CalendarModule } from 'primeng/calendar';
 import { DialogModule } from 'primeng/dialog';
 import { RatingModule } from 'primeng/rating';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [LayoutComponent, SidebarComponent],
@@ -24,7 +24,8 @@ import { FormsModule } from '@angular/forms';
     RatingModule,
     DialogModule,
     FormsModule,
-    CalendarModule
+    CalendarModule,
+    GlobalSharedModule,
   ]
 })
 export class SharedModule { }

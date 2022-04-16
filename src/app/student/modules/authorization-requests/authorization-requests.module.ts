@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ViewAuthorizationRequestComponent } from './pages/view-authorization-request/view-authorization-request.component';
 import { CreateAuthorizationRequestComponent } from './pages/create-authorization-request/create-authorization-request.component';
 import { SharedModule } from '../../shared/shared.module';
+import { FileUploadModule } from 'primeng/fileupload';
 
 const routes: Routes = [{ path: '', component: AuthorizationRequestsComponent }];
 @NgModule({
@@ -12,6 +13,7 @@ const routes: Routes = [{ path: '', component: AuthorizationRequestsComponent }]
   imports: [
     CommonModule,
     SharedModule,
+    FileUploadModule,
     RouterModule.forChild(routes),
   ]
 })
