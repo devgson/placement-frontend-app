@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { AuthorizationRequestService } from 'src/app/student/shared/services/authorization-request.service';
+import { StudentService } from 'src/app/student/shared/services/student.service';
 
 @Component({
   selector: 'app-view-authorization-request',
@@ -8,20 +8,21 @@ import { AuthorizationRequestService } from 'src/app/student/shared/services/aut
   styleUrls: ['./view-authorization-request.component.scss']
 })
 export class ViewAuthorizationRequestComponent implements OnInit {
-  deleting;
   @Input() authorizationRequest;
   @Output() closeDialog = new EventEmitter<any>();
 
+  deleting;
+
   constructor(
     private toastr: ToastrService,
-    private authorizationRequestService: AuthorizationRequestService
+    private studentService: StudentService
   ) { }
 
   ngOnInit(): void {}
 
   deleteAuthorizationRequest(requestId) {
     this.deleting = true;
-    this.authorizationRequestService.deleteAuthorizationRequest(requestId)
+    this.studentService.deleteAuthorizationRequest(requestId)
       .subscribe(
         (value) => {
           this.toastr.success('', value.message);

@@ -23,7 +23,7 @@ export class AuthService {
   register(type, data): Observable<SuccessResponse> {
     const url = `${environment.API_URL}/auth/register/${type}`;
     return this.http
-      .post(url, data)
+      .post(url, data, { headers: { 'X-Skip-Interceptor': 'true' } })
       .pipe(
         map((response: SuccessResponse) => response),
         catchError((error) => this.errorHandler.handleHttpError(error))
@@ -39,7 +39,7 @@ export class AuthService {
   login(role, data): Observable<SuccessResponse> {
     const url = `${environment.API_URL}/auth/login/${role}`;
     return this.http
-      .post(url, data)
+      .post(url, data, { headers: { 'X-Skip-Interceptor': 'true' } })
       .pipe(
         map((response: SuccessResponse) => this.handleLogin(response)),
         catchError((error) => this.errorHandler.handleHttpError(error))
@@ -48,7 +48,10 @@ export class AuthService {
 
   adminLogin(data): Observable<SuccessResponse> {
     return this.http
-      .post(`${environment.API_URL}/auth/login/admin`, data)
+      .post(
+        `${environment.API_URL}/auth/login/admin`,
+        data,
+        { headers: { 'X-Skip-Interceptor': 'true' } })
       .pipe(
         map((response: SuccessResponse) => this.handleLogin(response)),
         catchError((error) => this.errorHandler.handleHttpError(error))

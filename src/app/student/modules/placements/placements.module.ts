@@ -4,6 +4,7 @@ import { PlacementsComponent } from './placements.component';
 import { Routes, RouterModule } from '@angular/router';
 import { ViewPlacementComponent } from './pages/view-placement/view-placement.component';
 import { SharedModule } from '../../shared/shared.module';
+import { FileUploadModule } from 'primeng/fileupload';
 
 const routes: Routes = [{ path: '', component: PlacementsComponent }];
 
@@ -12,6 +13,7 @@ const routes: Routes = [{ path: '', component: PlacementsComponent }];
   imports: [
     CommonModule,
     SharedModule,
+    FileUploadModule,
     RouterModule.forChild(routes),
   ]
 })

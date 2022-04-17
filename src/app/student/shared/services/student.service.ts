@@ -9,9 +9,38 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthorizationRequestService {
+export class StudentService {
 
   constructor(private http: HttpClient, private errorHandler: ErrorHandlerService) {}
+
+  getPlacements({
+    id = '',
+    status = '',
+  } = {}): Observable<SuccessResponse> {
+    const queryParams = new HttpParams({
+      fromObject: {
+        ...(id && { id }),
+        ...(status && { status }),
+      },
+    });
+    const url = `${environment.API_URL}/students/placements?${queryParams.toString()}`;
+    return this.http
+      .get(url)
+      .pipe(
+        map((response: SuccessResponse) => response),
+        catchError((error) => this.errorHandler.handleHttpError(error))
+      );
+  }
+
+  submitMonthlyReport(id, data): Observable<SuccessResponse> {
+    const url = `${environment.API_URL}/students/placements/${id}/report`;
+    return this.http
+      .post(url, data)
+      .pipe(
+        map((response: SuccessResponse) => response),
+        catchError((error) => this.errorHandler.handleHttpError(error))
+      );
+  }
 
   getAuthorizationRequests({
     id = '',

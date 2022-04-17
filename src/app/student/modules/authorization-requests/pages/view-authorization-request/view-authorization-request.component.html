@@ -141,14 +141,16 @@
   <div class="row mt-4">
     <div class="text-center">
       <ng-content></ng-content>
-      <button
-        (click)="deleteAuthorizationRequest(authorizationRequest?.id)"
-        type="button"
-        class="btn btn-danger ms-2"
-        *ngIf="!deleting; else spinner"
-      >
-        <i class="far fa-trash-alt me-2"></i>Delete
-      </button>
+      <div class="d-inline-block" *ngIf="authorizationRequest?.status === 'pending'">
+        <button
+          (click)="deleteAuthorizationRequest(authorizationRequest?.id)"
+          type="button"
+          class="btn btn-danger ms-2"
+          *ngIf="!deleting; else spinner"
+        >
+          <i class="far fa-trash-alt me-2"></i>Delete
+        </button>
+      </div>
     </div>
   </div>
 </div>

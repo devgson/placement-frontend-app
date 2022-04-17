@@ -3,41 +3,65 @@
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Full Name</label>
-        <input class="form-control" value="John Doe" disabled>
+        <input
+          class="form-control"
+          [value]="registration?.fullName"
+          disabled
+        >
       </div>
     </div>
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Email</label>
-        <input class="form-control" value="john@yahoo.com" disabled>
+        <input
+          class="form-control"
+          [value]="registration?.email"
+          disabled
+        >
       </div>
     </div>
   </div>
-  <div class="row my-2">
+  <div class="row my-2" *ngIf="registration?.currentLevel">
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Current Level</label>
-        <input class="form-control" value="300 Level" disabled>
+        <input
+          class="form-control"
+          [value]="registration?.currentLevel"
+          disabled
+        >
       </div>
     </div>
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Course</label>
-        <input class="form-control" value="Advanced Computer Science" disabled>
+        <input
+          class="form-control"
+          [value]="registration?.course"
+          disabled
+        >
       </div>
     </div>
   </div>
   <div class="row my-2">
-    <div class="col-6">
+    <div class="col-6"  *ngIf="registration?.position">
       <div class="form-group my-2">
         <label class="form-label">Position</label>
-        <input class="form-control" value="Professor of Computer Science" disabled>
+        <input
+          class="form-control"
+          [value]="registration?.position"
+          disabled
+        >
       </div>
     </div>
     <div class="col-6">
       <div class="form-group my-2">
-        <label class="form-label">Department</label>
-        <input class="form-control" value="Computer Science" disabled>
+        <label class="form-label">Phone Number</label>
+        <input
+          class="form-control"
+          [value]="registration?.phoneNumber"
+          disabled
+        >
       </div>
     </div>
   </div>
@@ -45,27 +69,39 @@
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Registered On</label>
-        <input class="form-control" value="12th September 2022" disabled>
+        <input
+          class="form-control"
+          [value]="registration?.createdAt | date:'longDate' "
+          disabled
+        >
       </div>
     </div>
     <div class="col-6">
       <div class="form-group my-2">
-        <label class="form-label">Identification Proof</label>
-        <button type="button" class="d-block btn btn-outline-success">
+        <label class="d-block form-label">Identification Proof</label>
+        <a [href]="registration?.universityId" target="_blank" type="button" class="btn btn-outline-success">
           <i class="fas fa-arrow-down me-2"></i>
           Download ID
-        </button>
+        </a>
       </div>
     </div>
   </div>
-  <div class="row my-5">
+  <div class="row my-5" *ngIf="registration?.registrationStatus === 'pending'">
     <div class="col-12">
-      <div class="form-group text-center">
-        <button type="button" class="btn btn-success me-3">
+      <div class="form-group text-center" *ngIf="!reviewing; else spinner">
+        <button
+          type="button"
+          class="btn btn-success me-3"
+          (click)="approveRegistration(registration?.id)"
+        >
           <i class="fas fa-check me-2"></i>
           Approve
         </button>
-        <button type="button" class="btn btn-danger">
+        <button
+          type="button"
+          class="btn btn-danger"
+          (click)="rejectRegistration(registration?.id)"
+        >
           <i class="fas fa-times me-2"></i>
           Reject
         </button>
@@ -76,3 +112,7 @@
     <ng-content></ng-content>
   </div>
 </div>
+
+<ng-template #spinner>
+  <app-spinner></app-spinner>
+</ng-template>

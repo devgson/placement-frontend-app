@@ -16,7 +16,7 @@ export class ErrorHandlerService implements ErrorHandler {
     const response: ErrorDetails = error.error;
 
     let errorTitle = 'An error occured';
-    const errorMessage = response.message || 'Please try again later';
+    const errorMessage = response?.message || 'Please try again later';
 
     if (typeof response.error === 'string') errorTitle = response.error;
     if (response.statusCode === 500) errorTitle = 'Internal Server Error occured';

@@ -22,7 +22,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private toastr: ToastrService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {}
@@ -41,10 +42,10 @@ export class LoginComponent implements OnInit {
       .subscribe(
         (value: SuccessResponse) => {
           this.toastr.success(value.message, 'Success');
-          //this.router.navigate(['/auth/login']);
+          this.router.navigate(['/', role]);
           this.loading = false;
         },
-        (error) => (this.loading = false)
+        (error) => this.loading = false
       );
   }
 

@@ -113,32 +113,32 @@
     </div>
     <div class="col-6">
       <div class="form-group my-2">
-          <label class="form-label">Authorization Request Form</label>
-          <div *ngIf="!getControlValue('requestForm')">
-            <p-fileUpload
-              mode="basic"
-              accept="application/pdf"
-              maxFileSize="10000000"
-              [multiple]="false"
-              [auto]="true"
-              customUpload="true"
-              (uploadHandler)="uploadFile($event)"
-              styleClass="bg-dark text-white me-2"
-              chooseIcon="fas fa-arrow-up-right-from-square"
-              chooseLabel="Upload Request Form"
-            ></p-fileUpload>
-          </div>
-          <div class="d-flex justify-content-between" *ngIf="getControlValue('requestForm')">
-            <b>{{ getControlValue('requestForm')?.name }}</b>
-            <span
-              style="cursor: pointer"
-              class="text-danger"
-              (click)="removeFile()"
-            >
-              <i class="fas fa-trash-alt"></i>
-              Remove
-            </span>
-          </div>
+        <label class="form-label">Authorization Request Form</label>
+        <div *ngIf="!getControlValue('requestForm')">
+          <p-fileUpload
+            mode="basic"
+            accept="application/pdf"
+            maxFileSize="10000000"
+            [multiple]="false"
+            [auto]="true"
+            customUpload="true"
+            (uploadHandler)="uploadFile($event)"
+            styleClass="bg-dark text-white me-2"
+            chooseIcon="fas fa-arrow-up-right-from-square"
+            chooseLabel="Upload Request Form"
+          ></p-fileUpload>
+        </div>
+        <div class="d-flex justify-content-between" *ngIf="getControlValue('requestForm')">
+          <b>{{ getControlValue('requestForm')?.name }}</b>
+          <span
+            style="cursor: pointer"
+            class="text-danger"
+            (click)="removeFile()"
+          >
+            <i class="fas fa-trash-alt"></i>
+            Remove
+          </span>
+        </div>
       </div>
     </div>
   </div>

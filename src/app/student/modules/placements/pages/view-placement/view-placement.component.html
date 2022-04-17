@@ -3,13 +3,21 @@
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Company Name</label>
-        <input class="form-control" value="BetterECO GmbH" disabled>
+        <input
+          class="form-control"
+          value="{{ placement?.companyName }}"
+          disabled
+        >
       </div>
     </div>
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Company Sector</label>
-        <input class="form-control" value="Agriculture" disabled>
+        <input
+          class="form-control"
+          value="{{ placement?.companySector }}"
+          disabled
+        >
       </div>
     </div>
   </div>
@@ -17,13 +25,21 @@
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Location</label>
-        <input class="form-control" value="Berlin, Germany" disabled>
+        <input
+          class="form-control"
+          value="{{ placement?.location }}"
+          disabled
+        >
       </div>
     </div>
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Duration</label>
-        <input class="form-control" value="3 Months" disabled>
+        <input
+          class="form-control"
+          value="{{ getPlacementDuration(placement?.startDate, placement?.endDate) }} Months"
+          disabled
+        >
       </div>
     </div>
   </div>
@@ -31,13 +47,21 @@
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Start Date</label>
-        <input class="form-control" value="9th March, 2021" disabled>
+        <input
+          class="form-control"
+          value="{{ placement?.startDate | date:'longDate' }}"
+          disabled
+        >
       </div>
     </div>
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">End Date</label>
-        <input class="form-control" value="11th March, 2022" disabled>
+        <input
+          class="form-control"
+          value="{{ placement?.endDate | date:'longDate' }}"
+          disabled
+        >
       </div>
     </div>
   </div>
@@ -47,7 +71,11 @@
         <label class="form-label">Tutor</label>
         <div class="row">
           <div class="col-9">
-            <input class="form-control" value="Joe Gomez" disabled>
+            <input
+              class="form-control"
+              value="{{ placement?.tutor?.fullName }}"
+              disabled
+            >
           </div>
           <div class="col-3">
             <button type="button" class="btn btn-outline-secondary">
@@ -62,13 +90,21 @@
         <div class="col-8">
           <div class="form-group my-2">
             <label class="form-label">Scheduled Visit</label>
-            <input class="form-control" value="None yet" disabled>
+            <input
+              class="form-control"
+              value="{{ placement?.scheduledVisitDate | date:'longDate' || 'None Yet' }}"
+              disabled
+            >
           </div>
         </div>
         <div class="col-4">
           <div class="form-group my-2">
             <label class="form-label">Type</label>
-            <input class="form-control" value="-" disabled>
+            <input
+              class="form-control"
+              value="{{ placement?.scheduledVisitType || '-' }}"
+              disabled
+            >
           </div>
         </div>
       </div>
@@ -100,32 +136,41 @@
       </div>
       <div class="col-12 col-md-2">
         <div class="form-group">
-          <label for="">Submit</label>
+          <!-- <label for="">Submit</label> -->
         </div>
       </div>
     </div>
-    <div class="row align-items-center mb-3">
+    <div *ngIf="placement?.monthlyReports?.length">
+      <div class="row align-items-center mb-3" *ngFor="let report of placement?.monthlyReports">
       <div class="col-12 col-md-3">
         <div class="form-group">
-          <input class="form-control" value="February" disabled>
+          <input
+            class="form-control"
+            [value]="getCurrentReportDate(report?.month)"
+            disabled
+          >
         </div>
       </div>
       <div class="col-12 col-md-4">
         <div class="form-group">
-          <button type="button" class="d-block btn btn-outline-success w-100">
+          <a [href]="report?.report" target="_blank" type="button" class="btn btn-success">
             <i class="fas fa-arrow-down me-1"></i>
-            Download Report
-          </button>
+            Download Monthly Report
+          </a>
         </div>
       </div>
       <div class="col-12 col-md-3">
         <div class="form-group">
           <p-rating
-          [iconOffStyle]="{ color: 'black' }"
-          [iconOnStyle]="{ color: 'gold' }"
-          iconOffClass="pi pi-star"
-          iconOnClass="fas fa-star"
-          [ngModel]="5" [cancel]="false" disabled="true"></p-rating>
+            [iconOffStyle]="{ color: 'black' }"
+            [iconOnStyle]="{ color: 'gold' }"
+            iconOffClass="pi pi-star"
+            iconOnClass="fas fa-star"
+            [ngModel]="report?.rating"
+            [cancel]="false"
+            disabled
+          >
+          </p-rating>
         </div>
       </div>
       <div class="col-12 col-md-2">
@@ -136,33 +181,69 @@
         </div>
       </div>
     </div>
-    <div class="row align-items-center">
+    </div>
+    <div
+      [formGroup]="form"
+      class="row align-items-center"
+      *ngIf="allowToUploadReport()"
+    >
       <div class="col-12 col-md-3">
         <div class="form-group">
-          <input class="form-control" value="January" disabled>
+          <input
+            class="form-control"
+            [value]="getCurrentReportDate()"
+            disabled
+          >
         </div>
       </div>
       <div class="col-12 col-md-4">
-        <div class="form-group">
-          <button type="button" class="d-block btn btn-outline-danger w-100">
-            <i class="fas fa-arrow-up me-1"></i>
-            Upload Report
-          </button>
+        <div class="form-group my-2">
+          <div *ngIf="!getControlValue('report')">
+            <p-fileUpload
+              mode="basic"
+              accept="application/pdf"
+              maxFileSize="10000000"
+              [multiple]="false"
+              [auto]="true"
+              customUpload="true"
+              (uploadHandler)="uploadFile($event)"
+              styleClass="bg-dark border-0 text-white me-1"
+              chooseIcon="fas fa-arrow-up"
+              chooseLabel="Upload Monthly Report"
+            ></p-fileUpload>
+          </div>
+          <div class="d-flex justify-content-between" *ngIf="getControlValue('report')">
+            <b>{{ getControlValue('report')?.name }}</b>
+            <span
+              style="cursor: pointer"
+              class="text-danger"
+              (click)="removeFile()"
+            >
+              <i class="fas fa-trash-alt"></i>
+              Remove
+            </span>
+          </div>
         </div>
       </div>
       <div class="col-12 col-md-3">
         <div class="form-group">
           <p-rating
+            formControlName="rating"
             [iconOffStyle]="{ color: 'black' }"
             [iconOnStyle]="{ color: 'gold' }"
             iconOffClass="pi pi-star"
             iconOnClass="fas fa-star"
-            [(ngModel)]="rating" [stars]="5" [cancel]="false"></p-rating>
+            [cancel]="false"></p-rating>
         </div>
       </div>
       <div class="col-12 col-md-2">
         <div class="form-group">
-          <button type="button" class="d-block btn btn-danger">
+          <button
+            (click)="submit()"
+            type="button"
+            class="d-block btn btn-danger"
+            *ngIf="!submitting; else spinner"
+          >
             Submit
           </button>
         </div>
@@ -173,3 +254,7 @@
     <ng-content></ng-content>
   </div>
 </div>
+
+<ng-template #spinner>
+  <app-spinner loadingText="Submitting"></app-spinner>
+</ng-template>

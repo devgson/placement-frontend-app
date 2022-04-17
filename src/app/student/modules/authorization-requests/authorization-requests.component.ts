@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { AuthorizationRequestService } from '../../shared/services/authorization-request.service';
+import { StudentService } from '../../shared/services/student.service';
 
 @Component({
   selector: 'app-authorization-requests',
@@ -23,14 +23,14 @@ export class AuthorizationRequestsComponent implements OnInit {
   viewAuthorizationRequest = false;
   createAuthorizationRequest = false;
 
-  constructor(private authorizationRequestService: AuthorizationRequestService) { }
+  constructor(private studentService: StudentService) { }
 
   ngOnInit(): void {
     this.getAuthorizationRequests()
   }
 
   getAuthorizationRequests() {
-    this.authorizationRequestService.getAuthorizationRequests()
+    this.studentService.getAuthorizationRequests()
       .subscribe((value) => {
         this.authorizationRequests = value.data;
         this.setActive('pending');
@@ -40,7 +40,7 @@ export class AuthorizationRequestsComponent implements OnInit {
 
   setNumberOfRequests() {
     this.numberOfPendingRequests = this.filterByStatus('pending').length;
-    this.numberOfAcceptedRequests = this.filterByStatus('accepted').length;
+    this.numberOfAcceptedRequests = this.filterByStatus('approved').length;
     this.numberOfRejectedRequests = this.filterByStatus('rejected').length;
   }
 

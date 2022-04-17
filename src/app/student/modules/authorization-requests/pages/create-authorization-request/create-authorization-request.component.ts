@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { add, intervalToDuration } from 'date-fns';
 import { ToastrService } from 'ngx-toastr';
 import { SuccessResponse } from 'src/app/shared/services/auth.service';
-import { AuthorizationRequestService } from 'src/app/student/shared/services/authorization-request.service';
+import { StudentService } from 'src/app/student/shared/services/student.service';
 
 @Component({
   selector: 'app-create-authorization-request',
@@ -39,7 +39,7 @@ export class CreateAuthorizationRequestComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
-    private authorizationRequestService: AuthorizationRequestService,
+    private studentService: StudentService,
   ) { }
 
   ngOnInit(): void {
@@ -105,7 +105,7 @@ export class CreateAuthorizationRequestComponent implements OnInit {
       }
       formData.append(key,  formValue[key]);
     });
-    this.authorizationRequestService.createAuthorizationRequest(formData)
+    this.studentService.createAuthorizationRequest(formData)
       .subscribe(
         (value: SuccessResponse) => {
           this.toastr.success('Your request has been sent to an admin for review', value.message);

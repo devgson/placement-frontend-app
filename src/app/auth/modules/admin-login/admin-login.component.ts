@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService, SuccessResponse } from 'src/app/shared/services/auth.service';
 
@@ -20,7 +21,8 @@ export class AdminLoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private toastr: ToastrService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) {}
 
   ngOnInit(): void {}
@@ -39,6 +41,7 @@ export class AdminLoginComponent implements OnInit {
         (value: SuccessResponse) => {
           this.toastr.success(value.message, 'Success');
           this.loading = false;
+          this.router.navigate(['/admin'])
         },
         (error) => (this.loading = false)
       );
