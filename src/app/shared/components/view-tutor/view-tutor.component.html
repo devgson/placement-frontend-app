@@ -3,13 +3,21 @@
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Tutor Name</label>
-        <input class="form-control" value="John Doe" disabled>
+        <input
+          class="form-control"
+          value="{{ tutor?.fullName }}"
+          disabled
+        >
       </div>
     </div>
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Tutor Email</label>
-        <input class="form-control" value="john@gmail.com" disabled>
+        <input
+          class="form-control"
+          value="{{ tutor?.email }}"
+          disabled
+        >
       </div>
     </div>
   </div>
@@ -17,13 +25,21 @@
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Position</label>
-        <input class="form-control" value="Professor" disabled>
+        <input
+          class="form-control"
+          value="{{ tutor?.position }}"
+          disabled
+        >
       </div>
     </div>
     <div class="col-6">
       <div class="form-group my-2">
-        <label class="form-label">Number of Students Assigned To</label>
-        <input class="form-control" value="30" disabled>
+        <label class="form-label">Number of Placements Assigned To</label>
+        <input
+          class="form-control"
+          value="{{ tutor?.placements?.length || 0 }}"
+          disabled
+        >
       </div>
     </div>
   </div>
@@ -31,13 +47,21 @@
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Phone Number</label>
-        <input class="form-control" value="+54683883232" disabled>
+        <input
+          class="form-control"
+          value="{{ tutor?.phoneNumber }}"
+          disabled
+        >
       </div>
     </div>
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Registered On</label>
-        <input class="form-control" value="12th November, 2022" disabled>
+        <input
+          class="form-control"
+          value="{{ tutor?.createdAt | date:'longDate' }}"
+          disabled
+        >
       </div>
     </div>
   </div>

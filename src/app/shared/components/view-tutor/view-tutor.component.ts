@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-view-tutor',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./view-tutor.component.scss']
 })
 export class ViewTutorComponent implements OnInit {
+  @Input() tutor;
 
   constructor() { }
 

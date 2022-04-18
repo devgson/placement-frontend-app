@@ -32,6 +32,25 @@ export class AdminService {
       );
   }
 
+  getPlacements({
+    id = '',
+    status = '',
+  } = {}): Observable<SuccessResponse> {
+    const queryParams = new HttpParams({
+      fromObject: {
+        ...(id && { id }),
+        ...(status && { status }),
+      },
+    });
+    const url = `${environment.API_URL}/admin/placements?${queryParams.toString()}`;
+    return this.http
+      .get(url)
+      .pipe(
+        map((response: SuccessResponse) => response),
+        catchError((error) => this.errorHandler.handleHttpError(error))
+      );
+  }
+
   getRegistrations({
     id = '',
     type = '',

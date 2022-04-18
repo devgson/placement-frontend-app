@@ -3,13 +3,21 @@
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Student Name</label>
-        <input class="form-control" value="John Doe" disabled>
+        <input
+          class="form-control"
+          value="{{ placement?.student?.fullName }}"
+          disabled
+        >
       </div>
     </div>
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Student Email</label>
-        <input class="form-control" value="john@gmail.com" disabled>
+        <input
+          class="form-control"
+          value="{{ placement?.student?.email }}"
+          disabled
+        >
       </div>
     </div>
   </div>
@@ -17,13 +25,21 @@
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Course</label>
-        <input class="form-control" value="Computer Science" disabled>
+        <input
+          class="form-control"
+          value="{{ placement?.student?.course }}"
+          disabled
+        >
       </div>
     </div>
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Current Level</label>
-        <input class="form-control" value="300 Level" disabled>
+        <input
+          class="form-control"
+          value="{{ placement?.student?.currentLevel }}"
+          disabled
+        >
       </div>
     </div>
   </div>
@@ -31,13 +47,21 @@
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Company Name</label>
-        <input class="form-control" value="BetterECO GmbH" disabled>
+        <input
+          class="form-control"
+          value="{{ placement?.companyName }}"
+          disabled
+        >
       </div>
     </div>
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Company Sector</label>
-        <input class="form-control" value="Agriculture" disabled>
+        <input
+          class="form-control"
+          value="{{ placement?.companySector }}"
+          disabled
+        >
       </div>
     </div>
   </div>
@@ -45,13 +69,21 @@
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Location</label>
-        <input class="form-control" value="Berlin, Germany" disabled>
+        <input
+          class="form-control"
+          value="{{ placement?.location }}"
+          disabled
+        >
       </div>
     </div>
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Duration</label>
-        <input class="form-control" value="3 Months" disabled>
+        <input
+          class="form-control"
+          value="{{ getPlacementDuration(placement?.startDate, placement?.endDate) }} Months"
+          disabled
+        >
       </div>
     </div>
   </div>
@@ -59,13 +91,21 @@
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Start Date</label>
-        <input class="form-control" value="9th March, 2021" disabled>
+        <input
+          class="form-control"
+          value="{{ placement?.startDate | date:'longDate' }}"
+          disabled
+        >
       </div>
     </div>
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">End Date</label>
-        <input class="form-control" value="11th March, 2022" disabled>
+        <input
+          class="form-control"
+          value="{{ placement?.endDate | date:'longDate' }}"
+          disabled
+        >
       </div>
     </div>
   </div>
@@ -73,13 +113,21 @@
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Tutor</label>
-        <input class="form-control" value="John Drakes" disabled>
+        <input
+          class="form-control"
+          value="{{ placement?.tutor?.fullName }}"
+          disabled
+        >
       </div>
     </div>
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Scheduled Visit</label>
-        <input class="form-control" value="12th January, 2022" disabled>
+        <input
+          class="form-control"
+          value="{{ placement?.scheduledVisitDate | date:'longDate' || 'None Yet' }}"
+          disabled
+        >
       </div>
     </div>
   </div>
@@ -108,30 +156,47 @@
         </div>
       </div>
     </div>
-    <div class="row align-items-center mb-3">
+    <div *ngIf="placement?.monthlyReports?.length">
+      <div class="row align-items-center mb-3" *ngFor="let report of placement?.monthlyReports">
       <div class="col-12 col-md-3">
         <div class="form-group">
-          <input class="form-control" value="February" disabled>
-        </div>
-      </div>
-      <div class="col-12 col-md-5">
-        <div class="form-group">
-          <button type="button" class="d-block btn btn-outline-success w-100">
-            <i class="fas fa-arrow-down me-1"></i>
-            Download Report
-          </button>
+          <input
+            class="form-control"
+            [value]="getCurrentReportDate(report?.month)"
+            disabled
+          >
         </div>
       </div>
       <div class="col-12 col-md-4">
         <div class="form-group">
-          <p-rating
-          [iconOffStyle]="{ color: 'black' }"
-          [iconOnStyle]="{ color: 'gold' }"
-          iconOffClass="pi pi-star"
-          iconOnClass="fas fa-star"
-          [ngModel]="3" [cancel]="false" disabled="true"></p-rating>
+          <a [href]="report?.report" target="_blank" type="button" class="btn btn-success">
+            <i class="fas fa-arrow-down me-1"></i>
+            Download Monthly Report
+          </a>
         </div>
       </div>
+      <div class="col-12 col-md-3">
+        <div class="form-group">
+          <p-rating
+            [iconOffStyle]="{ color: 'black' }"
+            [iconOnStyle]="{ color: 'gold' }"
+            iconOffClass="pi pi-star"
+            iconOnClass="fas fa-star"
+            [ngModel]="report?.rating"
+            [cancel]="false"
+            disabled
+          >
+          </p-rating>
+        </div>
+      </div>
+      <div class="col-12 col-md-2">
+        <div class="form-group">
+          <button type="button" class="d-block btn btn-success" disabled>
+            Submitted
+          </button>
+        </div>
+      </div>
+    </div>
     </div>
   </div>
   <div class="row mt-5">

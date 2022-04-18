@@ -3,13 +3,21 @@
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Student Name</label>
-        <input class="form-control" value="John Doe" disabled>
+        <input
+          class="form-control"
+          value="{{ student?.fullName }}"
+          disabled
+        >
       </div>
     </div>
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Student Email</label>
-        <input class="form-control" value="john@gmail.com" disabled>
+        <input
+          class="form-control"
+          value="{{ student?.email }}"
+          disabled
+        >
       </div>
     </div>
   </div>
@@ -17,13 +25,21 @@
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Course</label>
-        <input class="form-control" value="Computer Science" disabled>
+        <input
+          class="form-control"
+          value="{{ student?.course }}"
+          disabled
+        >
       </div>
     </div>
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Current Level</label>
-        <input class="form-control" value="300 Level" disabled>
+        <input
+          class="form-control"
+          value="{{ student?.currentLevel }}"
+          disabled
+        >
       </div>
     </div>
   </div>
@@ -31,13 +47,21 @@
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Phone Number</label>
-        <input class="form-control" value="+54683883232" disabled>
+        <input
+          class="form-control"
+          value="{{ student?.phoneNumber }}"
+          disabled
+        >
       </div>
     </div>
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Registered On</label>
-        <input class="form-control" value="12th November, 2022" disabled>
+        <input
+          class="form-control"
+          value="{{ student?.createdAt | date:'longDate' }}"
+          disabled
+        >
       </div>
     </div>
   </div>

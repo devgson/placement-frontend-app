@@ -1,43 +1,54 @@
 <div class="container-fluid">
   <div class="text-center bg-danger rounded mt-4 p-2">
-    <h5 class="text-light m-0 mx-auto">View Tutors (15)</h5>
+    <h5 class="text-light m-0 mx-auto">Tutors ({{ tutors?.length || 0}})</h5>
   </div>
   <div>
     <div class="row mt-3">
-      <div class="col-lg-4 col-xl-3 col-md-6 mb-3">
+      <div
+        class="col-lg-4 col-xl-3 col-md-6 mb-3"
+        *ngFor="let tutor of tutors"
+      >
         <div class="card shadow border-top-green">
           <div class="card-header d-flex align-items-baseline card-title pt-3 pb-0">
-            <h5 class="font-weight-bold">John Doe</h5>
-            <small class="float-right text-muted ms-auto" style="font-size: 0.7rem;">15th July, 2022</small>
+            <h5 class="font-weight-bold">{{ tutor?.fullName }}</h5>
+            <small class="float-right text-muted ms-auto" style="font-size: 0.7rem;">
+              {{ tutor?.createdAt | date:'longDate' }}
+            </small>
           </div>
           <div class="card-body">
             <div>
               <p class="card-text mb-0 mt-3">
                 <i class="fas fa-user-secret me-2" style="font-size: 0.8rem;"></i><b>Email</b>
               </p>
-              <p class="card-text mb-0" style="font-size: 0.9rem;">johnny@gmail.com</p>
+              <p class="card-text mb-0" style="font-size: 0.9rem;">{{ tutor?.email }}</p>
             </div>
             <div>
               <p class="card-text mb-0 mt-3">
                 <i class="fas fa-clock-rotate-left me-2" style="font-size: 0.8rem;"></i><b>Phone Number</b>
               </p>
-              <p class="card-text" style="font-size: 0.9rem;">+44788492323</p>
+              <p class="card-text" style="font-size: 0.9rem;">
+                {{ tutor?.phoneNumber }}
+              </p>
             </div>
             <div>
               <p class="card-text mb-0 mt-3">
-                <i class="fas fa-user-secret me-2" style="font-size: 0.8rem;"></i><b>Number of Students Assigned To</b>
+                <i class="fas fa-user-secret me-2" style="font-size: 0.8rem;"></i><b>Number of Placements Assigned To</b>
               </p>
-              <p class="card-text mb-0" style="font-size: 0.9rem;">19</p>
+              <p class="card-text mb-0" style="font-size: 0.9rem;">
+                {{ tutor?.placements?.length || 0 }}
+              </p>
             </div>
             <div>
               <p class="card-text mb-0 mt-3">
                 <i class="fas fa-location-crosshairs me-2" style="font-size: 0.8rem;"></i><b>Registered On</b>
               </p>
-              <p class="card-text" style="font-size: 0.9rem;">12th September, 2021</p>
+              <p class="card-text" style="font-size: 0.9rem;">
+                {{ tutor?.createdAt | date:'longDate' }}
+              </p>
             </div>
           </div>
           <div class="card-footer bg-white">
-            <button (click)="openDialog()" type="button" class="btn btn-sm btn-outline-dark me-2">
+            <button (click)="openDialog(tutor)" type="button" class="btn btn-sm btn-outline-dark me-2">
               <i class="far fa-eye pe-1 pt-1" aria-hidden="true" style="font-size: 0.9rem;"></i>View Details
             </button>
           </div>
@@ -62,7 +73,9 @@
     </div>
   </ng-template>
   <div>
-    <app-view-tutor>
+    <app-view-tutor
+      [tutor]="tutor"
+    >
       <div class="text-center">
         <button (click)="viewTutor = false" type="button" class="btn btn-secondary w-25">
           Close
