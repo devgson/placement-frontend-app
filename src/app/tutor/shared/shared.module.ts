@@ -28,6 +28,7 @@ import { RatingModule } from 'primeng/rating';
     DialogModule,
     CalendarModule,
     FormsModule,
+    GlobalSharedModule,
   ]
 })
 export class SharedModule { }
