@@ -22,26 +22,6 @@
   <div class="row my-2">
     <div class="col-6">
       <div class="form-group my-2">
-        <label class="form-label">Location</label>
-        <input formControlName="location" class="form-control" type="text">
-        <p class="error" *ngIf="hasError('location')">
-          Location is required
-        </p>
-      </div>
-    </div>
-    <div class="col-6">
-      <div class="form-group my-2">
-        <label class="form-label">Duration (in Months)</label>
-        <input formControlName="duration" class="form-control" type="number" min="1" max="12">
-        <p class="error" *ngIf="hasError('duration')">
-          Duration is required
-        </p>
-      </div>
-    </div>
-  </div>
-  <div class="row my-2">
-    <div class="col-6">
-      <div class="form-group my-2">
         <label class="form-label">Potential Start Date</label>
         <p-calendar
           [monthNavigator]="true"
@@ -106,11 +86,26 @@
   <div class="row my-2">
     <div class="col-6">
       <div class="form-group my-2">
+        <label class="form-label">Location</label>
+        <input 
+          class="form-control" 
+          type="text"
+          #location
+        >
+        <p class="error" *ngIf="hasError('location')">
+          Location is required
+        </p>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="form-group my-2">
         <label class="form-label">Add Comments</label>
         <textarea formControlName="studentComment" class="form-control" [maxLength]="255">
         </textarea>
       </div>
     </div>
+  </div>
+  <div class="row my-2">
     <div class="col-6">
       <div class="form-group my-2">
         <label class="form-label">Authorization Request Form</label>

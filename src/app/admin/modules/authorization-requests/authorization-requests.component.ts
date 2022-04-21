@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { intervalToDuration } from 'date-fns';
 import { AdminService } from '../../shared/services/admin.service';
 
 @Component({
@@ -27,6 +28,14 @@ export class AuthorizationRequestsComponent implements OnInit {
   ngOnInit(): void {
     this.getTutors({ registrationStatus: 'approved' });
     this.getAuthorizationRequests()
+  }
+
+  getPlacementDuration(start, end) {
+    if (!start || !end) return;
+    return intervalToDuration({
+      start: new Date(start),
+      end: new Date(end),
+    }).months;
   }
 
   getTutors(query) {

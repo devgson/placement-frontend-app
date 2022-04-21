@@ -13,10 +13,6 @@ const routes: Routes = [{ path: '', component: MapComponent }];
     CommonModule,
     SharedModule,
     RouterModule.forChild(routes),
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDtMqmHaYo5UtcPDLESwr42YU-OCDUh3gc',
-      libraries: ['places'],
-    }),
   ]
 })
 export class MapModule {}

@@ -2,22 +2,16 @@
   <div class="text-center bg-danger rounded mt-4 p-2">
     <h5 class="text-light m-0 mx-auto">Map of Students on Placement</h5>
   </div>
-  <div class="row mt-4 mb-3">
-    <div class="form-group col-4">
-      <label class="form-label">Search</label>
-      <input class="form-control" type="text">
-    </div>
-  </div>
-  <div class="row">
-    <agm-map
-      [latitude]="52.695801"
-      [longitude]="1.071250"
-      [zoom]="10"
-    >
-      <agm-marker
-        [latitude]="52.695801"
-        [longitude]="1.071250"
-        [markerDraggable]="true">
+  <div class="row mt-4">
+    <agm-map [zoom]="2" *ngIf="placements?.length">
+      <agm-marker 
+        *ngFor="let placement of placements; let i = index"
+        [latitude]="placement.latitude"
+        [longitude]="placement.longitude"
+      >
+        <agm-info-window>
+          <strong>{{ placement?.student?.fullName }}</strong>
+        </agm-info-window>
       </agm-marker>
     </agm-map>
   </div>

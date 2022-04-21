@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
+import { intervalToDuration } from 'date-fns';
 import { StudentService } from '../../shared/services/student.service';
 
 @Component({
@@ -8,7 +8,6 @@ import { StudentService } from '../../shared/services/student.service';
   styleUrls: ['./authorization-requests.component.scss']
 })
 export class AuthorizationRequestsComponent implements OnInit {
-
   active = 'pending';
 
   authorizationRequest;
@@ -27,6 +26,14 @@ export class AuthorizationRequestsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAuthorizationRequests()
+  }
+
+  getPlacementDuration(start, end) {
+    if (!start || !end) return;
+    return intervalToDuration({
+      start: new Date(start),
+      end: new Date(end),
+    }).months;
   }
 
   getAuthorizationRequests() {

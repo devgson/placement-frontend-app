@@ -7,12 +7,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { ToastrModule } from 'ngx-toastr';
+import { AgmCoreModule } from '@agm/core';
+import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 
 @NgModule({
   declarations: [TopbarComponent, ViewStudentComponent, ViewTutorComponent, SpinnerComponent],
   exports: [
+    AgmCoreModule,
     FormsModule,
     ToastrModule,
+    GooglePlaceModule,
     HttpClientModule,
     ReactiveFormsModule,
 
@@ -26,9 +30,14 @@ import { ToastrModule } from 'ngx-toastr';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    GooglePlaceModule,
     ToastrModule.forRoot({
       closeButton: true,
       progressBar: true,
+    }),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDtMqmHaYo5UtcPDLESwr42YU-OCDUh3gc',
+      libraries: ['places'],
     }),
   ]
 })

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { addMonths, format, getYear, intervalToDuration, isAfter } from 'date-fns';
+import { addMonths, format, getYear, intervalToDuration, isAfter, isBefore } from 'date-fns';
 import { ToastrService } from 'ngx-toastr';
 import { SuccessResponse } from 'src/app/shared/services/auth.service';
 import { StudentService } from 'src/app/student/shared/services/student.service';
@@ -41,12 +41,18 @@ export class ViewPlacementComponent implements OnInit {
 
   allowToUploadReport() {
     if (!this.placement) return false;
+    
+    const placementHasNotStarted = isBefore(new Date(), new Date(this.placement.startDate));
+    if (placementHasNotStarted) return false;
+
     const endDate = addMonths(new Date(this.placement.endDate), 1);
     const placementHasFinished = isAfter(new Date(), endDate);
     if (placementHasFinished) return false;
+
     const { month, year } = this.getYearAndMonth(new Date());
     const reportHasBeenSubmitted = this.reportHasBeenSubmitted(year, month);
     if (reportHasBeenSubmitted) return false;
+
     this.setCurrentReportDate();
     return true;
   }

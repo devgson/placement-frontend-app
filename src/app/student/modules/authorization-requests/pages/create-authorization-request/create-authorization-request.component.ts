@@ -1,6 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, NgZone, OnInit, Output, ViewChild } from '@angular/core';
 import { Validators, FormBuilder, FormGroup, ValidationErrors } from '@angular/forms';
-import { Router } from '@angular/router';
 import { add, intervalToDuration } from 'date-fns';
 import { ToastrService } from 'ngx-toastr';
 import { SuccessResponse } from 'src/app/shared/services/auth.service';
@@ -11,8 +10,10 @@ import { StudentService } from 'src/app/student/shared/services/student.service'
   templateUrl: './create-authorization-request.component.html',
   styleUrls: ['./create-authorization-request.component.scss']
 })
-export class CreateAuthorizationRequestComponent implements OnInit {
+export class CreateAuthorizationRequestComponent implements OnInit, AfterViewInit {
   @Output() closeDialog = new EventEmitter<any>();
+  @ViewChild('location', { static: true }) locationElementRef: ElementRef;
+
   minDate = new Date();
   maxDate = add(new Date(), { months: 12 });
 
@@ -21,7 +22,8 @@ export class CreateAuthorizationRequestComponent implements OnInit {
     {
       studentComment: [''],
       location: ['', Validators.required],
-      duration: [1, [Validators.required, Validators.min(1), Validators.max(12)]],
+      latitude: ['', Validators.required],
+      longitude: ['', Validators.required],
       requestForm: ['', Validators.required],
       companyName: ['', Validators.required],
       companySector: ['', Validators.required],
@@ -42,7 +44,19 @@ export class CreateAuthorizationRequestComponent implements OnInit {
     private studentService: StudentService,
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  ngAfterViewInit() {
+    const autocomplete = new google.maps.places.Autocomplete(this.locationElementRef.nativeElement);
+    autocomplete.addListener('place_changed', () => {
+      const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+      if (!place.geometry) return;
+      this.form.patchValue({
+        location: place.formatted_address,
+        latitude: place.geometry.location.lat(),
+        longitude: place.geometry.location.lng(),
+      })
+    });
   }
 
   getControlValue(control, form = this.form) {
