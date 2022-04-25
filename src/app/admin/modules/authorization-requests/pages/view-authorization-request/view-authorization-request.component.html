@@ -37,7 +37,7 @@
         <label class="form-label">Duration</label>
         <input
           class="form-control"
-          value="{{ authorizationRequest?.duration }} Months"
+          value="{{ getPlacementDuration(authorizationRequest?.potentialStartDate, authorizationRequest?.potentialEndDate) }} Months"
           disabled
         >
       </div>
@@ -158,6 +158,11 @@
     </div>
   </div>
   <div class="row my-5" *ngIf="authorizationRequest?.status === 'pending'">
+    <div class="col-12">
+      <p class="mb-4 text-center text-danger" style="font-weight: bolder">
+        Make sure to do all necessary background check before approving.
+      </p>
+    </div>
     <div class="col-12">
       <div class="form-group text-center" *ngIf="!reviewing; else spinner">
         <button

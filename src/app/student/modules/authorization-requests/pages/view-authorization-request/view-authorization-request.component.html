@@ -93,7 +93,7 @@
         <label class="form-label">Duration</label>
         <input
           class="form-control"
-          value="{{ authorizationRequest?.duration }} Months"
+          value="{{ getPlacementDuration(authorizationRequest?.potentialStartDate, authorizationRequest?.potentialEndDate) }} Months"
           disabled
         >
       </div>

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { intervalToDuration } from 'date-fns';
 import { ToastrService } from 'ngx-toastr';
 import { AdminService } from 'src/app/admin/shared/services/admin.service';
 
@@ -27,6 +28,14 @@ export class ViewAuthorizationRequestComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+  }
+
+  getPlacementDuration(start, end) {
+    if (!start || !end) return;
+    return intervalToDuration({
+      start: new Date(start),
+      end: new Date(end),
+    }).months;
   }
 
   isInvalid() {

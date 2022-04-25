@@ -118,6 +118,13 @@
         </h5>
       </div>
     </div>
+    <div class="row">
+      <div class="col-12">
+        <p class="mb-4" style="font-weight: bolder">
+          Here you can upload your monthly report for each month and also rate your experience at the workplace for that month.
+        </p>
+      </div>
+    </div>
     <div class="row align-items-center mb-2">
       <div class="col-12 col-md-3">
         <div class="form-group">
@@ -142,45 +149,45 @@
     </div>
     <div *ngIf="placement?.monthlyReports?.length">
       <div class="row align-items-center mb-3" *ngFor="let report of placement?.monthlyReports">
-      <div class="col-12 col-md-3">
-        <div class="form-group">
-          <input
-            class="form-control"
-            [value]="getCurrentReportDate(report?.month)"
-            disabled
-          >
+        <div class="col-12 col-md-3">
+          <div class="form-group">
+            <input
+              class="form-control"
+              [value]="getCurrentReportDate(report?.month)"
+              disabled
+            >
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="form-group">
+            <a [href]="report?.report" target="_blank" type="button" class="btn btn-success">
+              <i class="fas fa-arrow-down me-1"></i>
+              Download Monthly Report
+            </a>
+          </div>
+        </div>
+        <div class="col-12 col-md-3">
+          <div class="form-group">
+            <p-rating
+              [iconOffStyle]="{ color: 'black' }"
+              [iconOnStyle]="{ color: 'gold' }"
+              iconOffClass="pi pi-star"
+              iconOnClass="fas fa-star"
+              [ngModel]="report?.rating"
+              [cancel]="false"
+              disabled
+            >
+            </p-rating>
+          </div>
+        </div>
+        <div class="col-12 col-md-2">
+          <div class="form-group">
+            <button type="button" class="d-block btn btn-success" disabled>
+              Submitted
+            </button>
+          </div>
         </div>
       </div>
-      <div class="col-12 col-md-4">
-        <div class="form-group">
-          <a [href]="report?.report" target="_blank" type="button" class="btn btn-success">
-            <i class="fas fa-arrow-down me-1"></i>
-            Download Monthly Report
-          </a>
-        </div>
-      </div>
-      <div class="col-12 col-md-3">
-        <div class="form-group">
-          <p-rating
-            [iconOffStyle]="{ color: 'black' }"
-            [iconOnStyle]="{ color: 'gold' }"
-            iconOffClass="pi pi-star"
-            iconOnClass="fas fa-star"
-            [ngModel]="report?.rating"
-            [cancel]="false"
-            disabled
-          >
-          </p-rating>
-        </div>
-      </div>
-      <div class="col-12 col-md-2">
-        <div class="form-group">
-          <button type="button" class="d-block btn btn-success" disabled>
-            Submitted
-          </button>
-        </div>
-      </div>
-    </div>
     </div>
     <div
       [formGroup]="form"

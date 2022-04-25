@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { intervalToDuration } from 'date-fns';
 import { ToastrService } from 'ngx-toastr';
 import { StudentService } from 'src/app/student/shared/services/student.service';
 
@@ -19,6 +20,14 @@ export class ViewAuthorizationRequestComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {}
+
+  getPlacementDuration(start, end) {
+    if (!start || !end) return;
+    return intervalToDuration({
+      start: new Date(start),
+      end: new Date(end),
+    }).months;
+  }
 
   deleteAuthorizationRequest(requestId) {
     this.deleting = true;

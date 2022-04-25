@@ -16,7 +16,7 @@ export class RegisterComponent implements OnInit {
   loading;
   form = this.fb.group({
     fullName: ['', Validators.required],
-    phoneNumber: ['', Validators.required],
+    phoneNumber: ['', [Validators.required, this.phoneValidator()]],
     email: ['', [Validators.required, this.emailValidator()]],
     password: ['', Validators.required],
     confirmPassword: ['', Validators.required],
@@ -65,14 +65,21 @@ export class RegisterComponent implements OnInit {
     );
   }
 
+  phoneValidator() {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const phoneNumber: string = control.value;
+      if (!phoneNumber) return null;
+      const isValidNumber = phoneNumber.startsWith('+44') && phoneNumber.length === 13;
+      return isValidNumber ? null : { invalidPhoneNumber: true };
+    };
+  }
+
   emailValidator() {
     return (control: AbstractControl): ValidationErrors | null => {
       const email = control.value;
       if (!email) return null;
-      if (email) {
-        const isValidEmail = email.endsWith('.le.ac.uk');
-        return isValidEmail ? null : { invalidEmail: true };
-      }
+      const isValidEmail = email.endsWith('.le.ac.uk');
+      return isValidEmail ? null : { invalidEmail: true };
     };
   }
 

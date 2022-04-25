@@ -27,7 +27,7 @@
           <option value="300 Level">300 Level</option>
           <option value="400 Level">400 Level</option>
           <option value="500 Level">500 Level</option>
-          <option value="postgraduate">Postgraduate</option>
+          <option value="Postgraduate">Postgraduate</option>
         </select>
         <p class="error" *ngIf="hasError('currentLevel', 'required', studentForm)">
           Student's Current Level is required
@@ -50,17 +50,15 @@
       <div>
         <label class="form-label">Phone Number</label>
         <div class="row">
-          <div class="col-3">
-            <div class="form-group">
-              <input class="form-control" type="text" value="+44" disabled>
-            </div>
-          </div>
-          <div class="col-9">
+          <div class="col-12">
             <div class="form-group">
               <input formControlName="phoneNumber" class="form-control" type="text" placeholder="Enter a valid UK phone number">
             </div>
             <p class="error" *ngIf="hasError('phoneNumber')">
               Phone Number is required
+            </p>
+            <p class="error" *ngIf="hasError('phoneNumber', 'invalidPhoneNumber')">
+              Phone Number must start with +44 and be exactly 13 characters
             </p>
           </div>
         </div>
