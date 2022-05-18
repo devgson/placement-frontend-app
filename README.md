@@ -1,7 +1,10 @@
 
 Placement App Frontend
 
-## Description
+Link to the Commit History: https://github.com/devgson/placement-frontend-app/commits/main
+## Installation
+
+Download NPM and Node.js through the link: https://nodejs.org/en/download/
 
 Run `npm install` to install all thrird-party libraries used in the application.
 
